@@ -140,7 +140,8 @@ namespace Bhasvic10th.iOS
 
 		static public List<AlertCategory> getAllAlertCategories()
 		{
-			return db.Query<AlertCategory>("select * from AlertCategory").ToList();
+			var myList = db.Query<AlertCategory>("select * from AlertCategory").ToList();
+			return myList.OrderBy(x => x.Category).ToList();
 		}
 
 		static public AlertCategory getAlertCategory(string category)
