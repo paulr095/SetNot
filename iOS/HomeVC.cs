@@ -11,11 +11,6 @@ namespace Bhasvic10th.iOS
 
 		public HomeVC(IntPtr handle) : base(handle)
 		{
-
-
-
-
-
 		}
 		public override  void ViewWillAppear(bool animated)
 		{
@@ -33,11 +28,25 @@ namespace Bhasvic10th.iOS
 
 			NewsItemGrabber _newsItemGrabber;
 			_newsItemGrabber = new NewsItemGrabber();
+			//LocalBhasvicDB.dropNewsItemTable();
 			LocalBhasvicDB.createNewsItemTable();
 			var jsonString = await _newsItemGrabber.getNews();
 			Console.WriteLine(jsonString);
 			LocalBhasvicDB.updateDBWithJSON(jsonString);
 			Console.WriteLine(LocalBhasvicDB.getItemList());
+
+			if (LocalBhasvicDB.getTableInfo("AlertCategory").Count == 0)
+			{
+				LocalBhasvicDB.createAlertCategoryTable();
+				var alertCat = new AlertCategory();
+				foreach (var category in ChosenCategories.categories)
+				{
+					alertCat.Alert = true;
+					alertCat.Category = category;
+					LocalBhasvicDB.updateAlertCategoryTable(alertCat);
+				}
+			}
+
 
 
 		}
