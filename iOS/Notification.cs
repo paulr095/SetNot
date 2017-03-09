@@ -14,11 +14,10 @@ namespace Bhasvic10th.iOS
 		public int NewsItemID { get; set; }
 		public bool Sound { get; set; }
 		public bool NotificationBadge { get; set; }
-		public string NotificationText { get; set; }
+		public string AlertAction { get; set; }
+		public string AlertBody { get; set; }
+		public string AlertTitle { get; set; }
 		public string NotificationDate { get; set; }
-		public string DateOfFirstNotification { get; set; }
-		public int NumberOfResends { get; set; }
-		public int ResendInterval { get; set; }
 	}
 
 

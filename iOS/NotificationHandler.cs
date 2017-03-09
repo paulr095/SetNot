@@ -4,10 +4,14 @@ using UIKit;
 
 namespace Bhasvic10th.iOS
 {
-	public class NotificationHandler
+	public static class NotificationHandler
 	{
-		public NotificationHandler()
+		static NotificationHandler()
 		{
+		}
+
+        public static void createLocalIOSNotification(Notification n)
+        {
 			// create the notification
 			var notification = new UILocalNotification();
 
@@ -15,21 +19,30 @@ namespace Bhasvic10th.iOS
 			notification.FireDate = NSDate.FromTimeIntervalSinceNow(10);
 
 			// configure the alert
-			notification.AlertAction = "View Alert";
-			notification.AlertBody = "Your 10 second alert has fired!";
+			notification.AlertAction = n.AlertAction;
+			notification.AlertBody = n.AlertBody;
 
 			// modify the badge
 			notification.ApplicationIconBadgeNumber = 1;
 
-			// set the sound to be the default sound
-			notification.SoundName = UILocalNotification.DefaultSoundName;
-
+			if (n.AlertSound == true) 
+			{
+				notification.SoundName = UILocalNotification.DefaultSoundName;
+			}
 
 
 			// schedule it
 			UIApplication.SharedApplication.ScheduleLocalNotification(notification);
 			Console.WriteLine("Scheduled...");
 
+		}
+		
+		public static string generateFireDateString(string dateOfEvent, int finalWarningDelay, int daysBefore)
+		{
+		}
+		
+		public static string generateFireDateString(string notificationDate)
+		{
 		}
 	}
 }

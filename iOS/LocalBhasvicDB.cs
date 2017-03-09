@@ -178,6 +178,21 @@ namespace Bhasvic10th.iOS
 
 		// ***** NotificationTable queries
 
+		static public bool updateNotificationTable(Notification notification)
+		{
+		
+			db.RunInTransaction(() =>
+			{
+					db.InsertOrReplace(notification);
+			});
+			return true;
+		}
+
+		static public List<Notification> getAllNotifications()
+		{
+			return db.Query<Notification>("select * from Notification").ToList().OrderBy(x => x.NotificationDate).ToList();
+		}
+
 
 
 	}
