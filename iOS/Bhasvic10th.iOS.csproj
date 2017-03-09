@@ -151,10 +151,6 @@
     <Compile Include="ViewController.designer.cs">
       <DependentUpon>ViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsViewController.cs" />
-    <Compile Include="SettingsViewController.designer.cs">
-      <DependentUpon>SettingsViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="EventsItemDetailedVC.cs" />
     <Compile Include="EventsItemDetailedVC.designer.cs">
       <DependentUpon>EventsItemDetailedVC.cs</DependentUpon>
@@ -214,6 +210,10 @@
     <Compile Include="NotificationHandler.cs" />
     <Compile Include="AlertCategory.cs" />
     <Compile Include="AlertCategoriesTableSource.cs" />
+    <Compile Include="SettingsVC.cs" />
+    <Compile Include="SettingsVC.designer.cs">
+      <DependentUpon>SettingsVC.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

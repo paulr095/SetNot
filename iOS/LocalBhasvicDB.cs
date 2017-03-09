@@ -17,6 +17,7 @@ namespace Bhasvic10th.iOS
 		public static List<NewsItem> itemList;
 		public static List<NewsItem> categorisedItemList;
 		public static SQLite.SQLiteConnection db;
+		public static int SettingsID;
 
 		static LocalBhasvicDB()
 		{
@@ -28,6 +29,7 @@ namespace Bhasvic10th.iOS
 			db = new SQLite.SQLiteConnection(DBLocation);
 			Console.WriteLine(db);
 			Console.WriteLine(DBLocation);
+			SettingsID = 1;
 
 
 
@@ -48,13 +50,13 @@ namespace Bhasvic10th.iOS
 		static public void createNotificationTable()
 		{
 
-			db.CreateTable<NewsItem>();
+			db.CreateTable<Notification>();
 			//return true;
 		}
 
 		static public void dropNotificationTable()
 		{
-			db.DropTable<NewsItem>();
+			db.DropTable<Notification>();
 		}
 
 		static public void createSettingsItemTable()
@@ -123,7 +125,32 @@ namespace Bhasvic10th.iOS
 		}
 
 
+		static public List<NewsItem> getEventList()
+		{
+			//var query = db.Table<NewsItem>().Select(res => res);
+			var query = db.Query<NewsItem>("select * from NewsItem where DateOfEvent IS NOT NULL" );
+			return query.ToList();
+		}
+
 		// ***** SystemSettingsTable queries
+
+		static public bool updateSystemSettingsTable(SystemSettings settings)
+		{
+
+			db.RunInTransaction(() =>
+			{
+				db.InsertOrReplace(settings);
+			});
+			return true;
+
+		}
+
+		static public SystemSettings getSystemSettings(int ID)
+		{
+			return db.Find<SystemSettings>(ID);
+		}
+
+
 
 		// ***** AlertCategoryTable queries
 
@@ -140,8 +167,7 @@ namespace Bhasvic10th.iOS
 
 		static public List<AlertCategory> getAllAlertCategories()
 		{
-			var myList = db.Query<AlertCategory>("select * from AlertCategory").ToList();
-			return myList.OrderBy(x => x.Category).ToList();
+			return db.Query<AlertCategory>("select * from AlertCategory").ToList().OrderBy(x => x.Category).ToList();
 		}
 
 		static public AlertCategory getAlertCategory(string category)

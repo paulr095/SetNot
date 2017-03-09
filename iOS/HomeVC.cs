@@ -47,6 +47,18 @@ namespace Bhasvic10th.iOS
 				}
 			}
 
+			if (LocalBhasvicDB.getTableInfo("SystemSettings").Count == 0)
+			{
+				LocalBhasvicDB.createSettingsItemTable();
+				var settings = new SystemSettings();
+				settings.ID = 1;
+				settings.Alerts = true;
+				settings.AlertSound = true;
+				settings.FinalWarningDelay = 10;
+				settings.NumberOfAlerts = 1;
+				LocalBhasvicDB.updateSystemSettingsTable(settings);
+			}
+
 
 
 		}
