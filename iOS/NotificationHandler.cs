@@ -10,35 +10,25 @@ namespace Bhasvic10th.iOS
 		{
 		}
 
-        public static void createLocalIOSNotification(Notification n)
+        public static void createLocalIOSNotification(Notification n, SystemSettings settings)
         {
-			// create the notification
 			var notification = new UILocalNotification();
 
-			// set the fire date (the date time in which it will fire)
-			notification.FireDate = NSDate.FromTimeIntervalSinceNow(10);
-
-			// configure the alert
+			notification.FireDate = (NSDate) DateTime.ParseExact(n.NotificationDate, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture);
 			notification.AlertAction = n.AlertAction;
 			notification.AlertBody = n.AlertBody;
-
-			// modify the badge
 			notification.ApplicationIconBadgeNumber = 1;
-
-			if (n.AlertSound == true) 
+			if (n.AlertSound | settings.AlertSound) 
 			{
 				notification.SoundName = UILocalNotification.DefaultSoundName;
 			}
 
-
-			// schedule it
 			UIApplication.SharedApplication.ScheduleLocalNotification(notification);
-			Console.WriteLine("Scheduled...");
-
 		}
 		
 		public static string generateFireDateString(string dateOfEvent, int finalWarningDelay, int daysBefore)
 		{
+			
 		}
 		
 		public static string generateFireDateString(string notificationDate)
