@@ -95,7 +95,7 @@ namespace Bhasvic10th.iOS
 			notification.NewsItemID = 1;
 			notification.NotificationBadge = true;
 			//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
-			notification.NotificationDate = "2017-03-10T13:37:00";
+			notification.NotificationDate = "2017-03-10T16:12:00";
 			notification.Sound = true;
 			LocalBhasvicDB.updateNotificationTable(notification);
 

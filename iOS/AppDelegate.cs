@@ -105,6 +105,7 @@ namespace Bhasvic10th.iOS
 		//	Window.RootViewController.PresentViewController(okayAlertController, true, null);
 		//	firstViewController.PresentViewController(okayAlertController, true, null);
 			// reset our badge
+			new UIAlertView(notification.AlertAction, notification.AlertBody, null, "OK", null).Show();
 			UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 		}
 
