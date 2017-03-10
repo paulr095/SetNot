@@ -207,7 +207,7 @@
     </Compile>
     <Compile Include="HomeCatPTableSource.cs" />
     <Compile Include="Notification.cs" />
-    <Compile Include="NotificationHandler.cs" />
+    <Compile Include="NotificationHelper.cs" />
     <Compile Include="AlertCategory.cs" />
     <Compile Include="AlertCategoriesTableSource.cs" />
     <Compile Include="SettingsVC.cs" />

@@ -2,12 +2,15 @@ using Foundation;
 using System;
 using UIKit;
 using System.Collections.Generic;
+using System.Globalization;
+
 
 namespace Bhasvic10th.iOS
 {
 	public partial class HomeVC : UITableViewController
 	{
 		
+		public int SettingsID = 1;
 
 		public HomeVC(IntPtr handle) : base(handle)
 		{
@@ -50,17 +53,62 @@ namespace Bhasvic10th.iOS
 			if (LocalBhasvicDB.getTableInfo("SystemSettings").Count == 0)
 			{
 				LocalBhasvicDB.createSettingsItemTable();
-				var settings = new SystemSettings();
-				settings.ID = 1;
-				settings.Alerts = true;
-				settings.AlertSound = true;
-				settings.FinalWarningDelay = 10;
-				settings.NumberOfAlerts = 1;
-				LocalBhasvicDB.updateSystemSettingsTable(settings);
+				var s = new SystemSettings();
+				s.ID = SettingsID;
+				s.Alerts = true;
+				s.AlertSound = true;
+				s.FinalWarningDelay = 10;
+				s.NumberOfAlerts = 1;
+				LocalBhasvicDB.updateSystemSettingsTable(s);
+			}
+
+			if (LocalBhasvicDB.getTableInfo("Notification").Count == 0)
+			{
+				LocalBhasvicDB.createNotificationTable();
 			}
 
 
+			NotificationHelper.cancelAllLocalNotifications();
+			SystemSettings settings = LocalBhasvicDB.getSystemSettings(SettingsID);
+			List<NewsItem> eventItems = LocalBhasvicDB.getEventList();
+			int i = 1;
+			foreach (var eventItem in eventItems)
+			{
+				Notification n = new Notification();
+				n.NotificationID = i; i++;
+				n.AlertAction = "Random";
+				n.AlertBody = eventItem.DateOfEvent + ": " + eventItem.Summary;
+				n.AlertTitle = "Bhasvic Event";
+				n.NewsItemID = eventItem.ID;
+				n.NotificationBadge = true;
+				n.NotificationDate = eventItem.NotificationDate;
+				n.Sound = settings.AlertSound;
+				LocalBhasvicDB.updateNotificationTable(n);
+			}
 
+
+			var notification = new Notification();
+			notification.NotificationID = i; i++;
+			notification.AlertAction = "Init Action";
+			notification.AlertBody = "Test Body";
+			notification.AlertTitle = "Bhasvic Event";
+			notification.NewsItemID = 1;
+			notification.NotificationBadge = true;
+			//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
+			notification.NotificationDate = "2017-03-10T13:37:00";
+			notification.Sound = true;
+			LocalBhasvicDB.updateNotificationTable(notification);
+
+
+
+
+
+
+			List<Notification> localNotificationItems = LocalBhasvicDB.getAllNotifications();
+			foreach (var localNotification in localNotificationItems)
+			{
+				NotificationHelper.createLocalIOSNotification(localNotification, settings);
+			}
 		}
 
 		public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)

@@ -190,7 +190,7 @@ namespace Bhasvic10th.iOS
 
 		static public List<Notification> getAllNotifications()
 		{
-			return db.Query<Notification>("select * from Notification").ToList().OrderBy(x => x.NotificationDate).ToList();
+			return db.Query<Notification>("select * from Notification").ToList();
 		}
 
 

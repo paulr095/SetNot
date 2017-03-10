@@ -43,10 +43,26 @@ namespace Bhasvic10th.iOS
 				application.RegisterUserNotificationSettings(notificationSettings);
 			}
 
+			if (launchOptions != null)
+			{
+				// check for a local notification
+				if (launchOptions.ContainsKey(UIApplication.LaunchOptionsLocalNotificationKey))
+				{
+					var localNotification = launchOptions[UIApplication.LaunchOptionsLocalNotificationKey] as UILocalNotification;
+					if (localNotification != null)
+					{
+						UIAlertController okayAlertController = UIAlertController.Create(localNotification.AlertAction, localNotification.AlertBody, UIAlertControllerStyle.Alert);
+						okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-		//	var hello = LocalBhasvicDB.db;
+						Window.RootViewController.PresentViewController(okayAlertController, true, null);
 
+						// reset our badge
+						UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+					}
+				}
+				//	var hello = LocalBhasvicDB.db;
 
+			}
 			return true;
 		}
 
@@ -80,6 +96,18 @@ namespace Bhasvic10th.iOS
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
+		public override void ReceivedLocalNotification(UIApplication application, UILocalNotification notification)
+		{
+			// show an alert
+			UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
+			okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+
+		//	Window.RootViewController.PresentViewController(okayAlertController, true, null);
+		//	firstViewController.PresentViewController(okayAlertController, true, null);
+			// reset our badge
+			UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
+		}
+
 	}
 }
 

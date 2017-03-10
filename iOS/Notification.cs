@@ -9,7 +9,7 @@ namespace Bhasvic10th.iOS
 	public class Notification
 	{
 
-		[PrimaryKey, AutoIncrement]
+		[PrimaryKey]
 		public int NotificationID { get; set; }
 		public int NewsItemID { get; set; }
 		public bool Sound { get; set; }
