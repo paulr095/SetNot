@@ -102,10 +102,9 @@ namespace Bhasvic10th.iOS
 			UIAlertController okayAlertController = UIAlertController.Create(notification.AlertAction, notification.AlertBody, UIAlertControllerStyle.Alert);
 			okayAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
 
-		//	Window.RootViewController.PresentViewController(okayAlertController, true, null);
-		//	firstViewController.PresentViewController(okayAlertController, true, null);
+
+			firstViewController.PresentViewController(okayAlertController, true, null);
 			// reset our badge
-			new UIAlertView(notification.AlertAction, notification.AlertBody, null, "OK", null).Show();
 			UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 		}
 

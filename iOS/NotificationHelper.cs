@@ -21,19 +21,22 @@ namespace Bhasvic10th.iOS
 
         public static void createLocalIOSNotification(Notification n, SystemSettings settings)
         {
-			var notification = new UILocalNotification();
-
-			notification.FireDate = DateTime.ParseExact(n.NotificationDate, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture).DateTimeToNSDate();
-			notification.AlertAction = n.AlertAction;
-			notification.AlertBody = n.AlertBody;
-			notification.ApplicationIconBadgeNumber = 1;
-			if (n.Sound| settings.AlertSound) 
+			if (settings.Alerts)
 			{
-				notification.SoundName = UILocalNotification.DefaultSoundName;
-			}
+				var notification = new UILocalNotification();
 
-			UIApplication.SharedApplication.ScheduleLocalNotification(notification);
-			Console.WriteLine("Local Notification Count: " + UIApplication.SharedApplication.ScheduledLocalNotifications.Length.ToString());
+				notification.FireDate = DateTime.ParseExact(n.NotificationDate, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture).DateTimeToNSDate();
+				notification.AlertAction = n.AlertAction;
+				notification.AlertBody = n.AlertBody;
+				notification.ApplicationIconBadgeNumber = 1;
+				if (n.Sound | settings.AlertSound)
+				{
+					notification.SoundName = UILocalNotification.DefaultSoundName;
+				}
+
+				UIApplication.SharedApplication.ScheduleLocalNotification(notification);
+				Console.WriteLine("Local Notification Count: " + UIApplication.SharedApplication.ScheduledLocalNotifications.Length.ToString());
+			}
 		}
 		
 		public static string generateFireDateString(string dateOfEvent, int finalWarningDelay, int daysBefore)

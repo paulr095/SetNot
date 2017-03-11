@@ -1,6 +1,9 @@
 using Foundation;
 using System;
 using UIKit;
+using System.Collections.Generic;
+using System.Globalization;
+
 
 namespace Bhasvic10th.iOS
 {
@@ -23,9 +26,12 @@ namespace Bhasvic10th.iOS
 			base.ViewWillAppear(animated);
 		}
 
+		public override void ViewWillDisappear(bool animated)
+		{
+		}
 
 
-		partial void LastB4EventsChangedHandler(UIStepper sender)
+	partial void LastB4EventsChangedHandler(UIStepper sender)
 		{
 			this.LastB4EventLabel.Text = sender.Value.ToString();
 			SystemSettings settings = LocalBhasvicDB.getSystemSettings(LocalBhasvicDB.SettingsID);
@@ -46,6 +52,10 @@ namespace Bhasvic10th.iOS
 			SystemSettings settings = LocalBhasvicDB.getSystemSettings(LocalBhasvicDB.SettingsID);
 			settings.Alerts = sender.On;
 			LocalBhasvicDB.updateSystemSettingsTable(settings);
+			if (!settings.Alerts)
+			{
+				NotificationHelper.cancelAllLocalNotifications();
+			}
 		}
 
 		partial void NotSoundOnSwitchHandler(UISwitch sender)
@@ -53,6 +63,30 @@ namespace Bhasvic10th.iOS
 			SystemSettings settings = LocalBhasvicDB.getSystemSettings(LocalBhasvicDB.SettingsID);
 			settings.AlertSound = sender.On;
 			LocalBhasvicDB.updateSystemSettingsTable(settings);
+		}
+
+		partial void LoadTestEvent_TouchUpInside(UIButton sender)
+		{
+			List<Notification> allCurrentNotifications = LocalBhasvicDB.getAllNotifications();
+			var notification = new Notification();
+			notification.NotificationID = allCurrentNotifications.Count + 1;
+			notification.AlertAction = "Init Action";
+			notification.AlertBody = "Test Event";
+			notification.AlertTitle = "Bhasvic Event";
+			notification.NewsItemID = 1;
+			notification.NotificationBadge = true;
+			//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
+			notification.NotificationDate = DateTime.Now.Date.ToString("yyyy-MM-dd") + "T" + DateTime.Now.AddMinutes(1).ToString("HH:mm:ss");//"2017-03-11T17:22:00";
+			notification.Sound = true;
+			LocalBhasvicDB.updateNotificationTable(notification);
+			NotificationHelper.cancelAllLocalNotifications();
+			List<Notification> localNotificationItems = LocalBhasvicDB.getAllNotifications();
+			SystemSettings settings = LocalBhasvicDB.getSystemSettings(1);
+			foreach (var localNotification in localNotificationItems)
+			{
+				NotificationHelper.createLocalIOSNotification(localNotification, settings);
+			}
+
 		}
 	}
 }

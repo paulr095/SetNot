@@ -37,7 +37,7 @@ namespace Bhasvic10th.iOS
 			Console.WriteLine(jsonString);
 			LocalBhasvicDB.updateDBWithJSON(jsonString);
 			Console.WriteLine(LocalBhasvicDB.getItemList());
-
+			LocalBhasvicDB.dropNotificationTable();
 			if (LocalBhasvicDB.getTableInfo("AlertCategory").Count == 0)
 			{
 				LocalBhasvicDB.createAlertCategoryTable();
@@ -77,7 +77,8 @@ namespace Bhasvic10th.iOS
 				Notification n = new Notification();
 				n.NotificationID = i; i++;
 				n.AlertAction = "Random";
-				n.AlertBody = eventItem.DateOfEvent + ": " + eventItem.Summary;
+				//n.AlertBody = eventItem.DateOfEvent + ": " + eventItem.Summary;
+				n.AlertBody = eventItem.Summary;
 				n.AlertTitle = "Bhasvic Event";
 				n.NewsItemID = eventItem.ID;
 				n.NotificationBadge = true;
@@ -95,7 +96,7 @@ namespace Bhasvic10th.iOS
 			notification.NewsItemID = 1;
 			notification.NotificationBadge = true;
 			//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
-			notification.NotificationDate = "2017-03-10T16:12:00";
+			notification.NotificationDate = "2017-03-11T17:22:00";
 			notification.Sound = true;
 			LocalBhasvicDB.updateNotificationTable(notification);
 
