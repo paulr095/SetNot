@@ -65,28 +65,28 @@ namespace Bhasvic10th.iOS
 			LocalBhasvicDB.updateSystemSettingsTable(settings);
 		}
 
-		partial void LoadTestEvent_TouchUpInside(UIButton sender)
-		{
-			List<Notification> allCurrentNotifications = LocalBhasvicDB.getAllNotifications();
-			var notification = new Notification();
-			notification.NotificationID = allCurrentNotifications.Count + 1;
-			notification.AlertAction = "Init Action";
-			notification.AlertBody = "Test Event";
-			notification.AlertTitle = "Bhasvic Event";
-			notification.NewsItemID = 1;
-			notification.NotificationBadge = true;
-			//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
-			notification.NotificationDate = DateTime.Now.Date.ToString("yyyy-MM-dd") + "T" + DateTime.Now.AddMinutes(1).ToString("HH:mm:ss");//"2017-03-11T17:22:00";
-			notification.Sound = true;
-			LocalBhasvicDB.updateNotificationTable(notification);
-			NotificationHelper.cancelAllLocalNotifications();
-			List<Notification> localNotificationItems = LocalBhasvicDB.getAllNotifications();
-			SystemSettings settings = LocalBhasvicDB.getSystemSettings(1);
-			foreach (var localNotification in localNotificationItems)
-			{
-				NotificationHelper.createLocalIOSNotification(localNotification, settings);
-			}
+		//partial void LoadTestEvent_TouchUpInside(UIButton sender)
+		//{
+		//	List<Notification> allCurrentNotifications = LocalBhasvicDB.getAllNotifications();
+		//	var notification = new Notification();
+		//	notification.NotificationID = allCurrentNotifications.Count + 1;
+		//	notification.AlertAction = "Init Action";
+		//	notification.AlertBody = "Test Event";
+		//	notification.AlertTitle = "Bhasvic Event";
+		//	notification.NewsItemID = 1;
+		//	notification.NotificationBadge = true;
+		//	//notification.NotificationDate = DateTime.Now.AddMinutes(1).ToLongDateString();
+		//	notification.NotificationDate = DateTime.Now.Date.ToString("yyyy-MM-dd") + "T" + DateTime.Now.AddMinutes(1).ToString("HH:mm:ss");//"2017-03-11T17:22:00";
+		//	notification.Sound = true;
+		//	LocalBhasvicDB.updateNotificationTable(notification);
+		//	NotificationHelper.cancelAllLocalNotifications();
+		//	List<Notification> localNotificationItems = LocalBhasvicDB.getAllNotifications();
+		//	SystemSettings settings = LocalBhasvicDB.getSystemSettings(1);
+		//	foreach (var localNotification in localNotificationItems)
+		//	{
+		//		NotificationHelper.createLocalIOSNotification(localNotification, settings);
+		//	}
 
-		}
+		//}
 	}
 }

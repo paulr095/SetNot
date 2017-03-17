@@ -46,10 +46,6 @@ namespace Bhasvic10th.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void LastB4EventsChangedHandler (UIKit.UIStepper sender);
 
-        [Action ("LoadTestEvent_TouchUpInside:")]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        partial void LoadTestEvent_TouchUpInside (UIKit.UIButton sender);
-
         [Action ("NotsEnableChangedHandler:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void NotsEnableChangedHandler (UIKit.UISwitch sender);

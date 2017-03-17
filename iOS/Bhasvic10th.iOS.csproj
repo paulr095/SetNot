@@ -188,6 +188,7 @@
     </Compile>
     <Compile Include="SystemSettings.cs" />
     <Compile Include="ChosenCategories.cs" />
+    <Compile Include="SettingsVC.cs" />
     <Compile Include="HomeTableSource.cs" />
     <Compile Include="EventsItemDetailedVCs.cs" />
     <Compile Include="EventsItemDetailedVCs.designer.cs">
@@ -210,9 +211,16 @@
     <Compile Include="NotificationHelper.cs" />
     <Compile Include="AlertCategory.cs" />
     <Compile Include="AlertCategoriesTableSource.cs" />
-    <Compile Include="SettingsVC.cs" />
     <Compile Include="SettingsVC.designer.cs">
       <DependentUpon>SettingsVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HelpVC.cs" />
+    <Compile Include="HelpVC.designer.cs">
+      <DependentUpon>HelpVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AboutVC.cs" />
+    <Compile Include="AboutVC.designer.cs">
+      <DependentUpon>AboutVC.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
